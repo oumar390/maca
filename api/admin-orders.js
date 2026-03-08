@@ -1,7 +1,17 @@
 import Airtable from 'airtable';
 
 export default async function handler(req, res) {
-  const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
+  const apiKey = process.env.AIRTABLE_API_KEY;
+  const baseId = process.env.AIRTABLE_BASE_ID;
+
+  if (!apiKey || !baseId) {
+    return res.status(500).json({ 
+      error: "Configuration Airtable manquante", 
+      details: "Les variables d'environnement AIRTABLE_API_KEY et AIRTABLE_BASE_ID ne sont pas configurées sur Vercel." 
+    });
+  }
+
+  const base = new Airtable({ apiKey }).base(baseId);
 
   if (req.method === 'GET') {
     try {
