@@ -17,6 +17,8 @@
   background-color: var(--color-bg);
   width: 100%;
   max-width: 600px;
+  max-height: 90vh; /* Force le modal à ne jamais dépasser l'écran */
+  overflow-y: auto; /* Ajoute un scroll interne */
   border-radius: 12px;
   padding: 40px;
   position: relative;
@@ -27,13 +29,21 @@
 .modal-close {
   position: absolute;
   top: 16px;
-  right: 24px;
-  background: none;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.8);
   border: none;
-  font-size: 32px;
-  color: var(--color-text-light);
+  font-size: 28px;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
   cursor: pointer;
-  transition: color 0.3s;
+  transition: all 0.3s;
+  z-index: 100;
 }
 
 .modal-close:hover {
@@ -199,13 +209,39 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 480px) {
+  .modal-overlay {
+    padding: 0; /* Remove padding to maximize mobile screen */
+    align-items: flex-end; /* Push to bottom like a bottom-sheet */
+  }
+
   .modal-content {
-    padding: 32px 20px;
+    padding: 32px 16px;
+    max-height: 95vh; /* Take up most of the screen */
+    border-radius: 20px 20px 0 0; /* Rounded top corners only */
+    border: none;
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
   }
   
   .pack-card {
     flex-direction: column;
     text-align: center;
     gap: 8px;
+  }
+
+  .modal-close {
+    position: sticky; /* Make it sticky so it stays at the top when scrolling */
+    float: right;
+    top: -16px; /* Offset parent padding */
+    margin-bottom: -40px; /* Offset the space it took */
+    background: rgba(30, 30, 30, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .modal-header {
+    margin-top: 24px;
+  }
+
+  .modal-header h2 {
+    font-size: 1.5rem;
   }
 }
