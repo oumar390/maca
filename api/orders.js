@@ -29,8 +29,8 @@ export default async function handler(req, res) {
           "Nom Complet": fullName,
           "Téléphone": phone,
           "Ville / Adresse": address,
-          "Quantité": quantity || 1,
-          "Total à payer": total || 15000,
+          "Quantité": parseInt(quantity, 10) || 1,
+          "Total à payer": parseInt(total, 10) || 15000,
           "Statut": ["Nouvelle"]
         }
       }
