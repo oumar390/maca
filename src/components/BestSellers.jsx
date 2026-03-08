@@ -55,7 +55,7 @@ const BestSellers = ({ onOpenCheckout }) => {
                 </p>
                 {item.isFeatured && (
                   <button className="btn btn-primary" onClick={onOpenCheckout} style={{ width: "100%" }}>
-                    Découvrir l'Effet
+                    Commander Maintenant
                   </button>
                 )}
               </div>

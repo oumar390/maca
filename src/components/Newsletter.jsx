@@ -22,7 +22,7 @@ const Newsletter = ({ onOpenCheckout }) => {
                 </p>
                 <div className="newsletter-actions">
                     <button className="btn btn-primary" style={{ padding: "16px 40px", fontSize: "18px" }} onClick={onOpenCheckout}>
-                      Commencer ma Cure
+                      Commander Maintenant
                     </button>
                 </div>
             </div>

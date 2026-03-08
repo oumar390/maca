@@ -18,7 +18,7 @@ const AboutUs = ({ onOpenCheckout }) => {
               qualité avec de la racine de Maca biologique, nous avons conçu une 
               formule unique pour la vitalité masculine.
             </p>
-            <button className="btn btn-primary about-btn" onClick={onOpenCheckout}>Découvrir</button>
+            <button className="btn btn-primary about-btn" onClick={onOpenCheckout}>Commander Maintenant</button>
           </div>
           
           <div className="about-img-lower-wrapper">
@@ -43,7 +43,7 @@ const AboutUs = ({ onOpenCheckout }) => {
                 qualité et une sécurité absolues, de la sélection des ingrédients 
                 jusqu'à votre tasse.
               </p>
-              <button className="btn btn-primary purpose-btn" onClick={onOpenCheckout}>Découvrir</button>
+              <button className="btn btn-primary purpose-btn" onClick={onOpenCheckout}>Commander Maintenant</button>
            </div>
         </div>
 
