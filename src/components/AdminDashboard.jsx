@@ -9,6 +9,7 @@ const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [dateFilter, setDateFilter] = useState('all');
   
   // Simple "security" just to hide the UI on the client side
   // The real security should be on the API level, but this prevents random visitors from seeing it easily
@@ -86,6 +87,36 @@ const AdminDashboard = () => {
     );
   }
 
+  const filteredOrders = orders.filter(order => {
+    if (dateFilter === 'all') return true;
+    
+    const orderDate = new Date(order.Date);
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    
+    if (dateFilter === 'today') {
+      return orderDate >= today;
+    }
+    if (dateFilter === 'yesterday') {
+      return orderDate >= yesterday && orderDate < today;
+    }
+    if (dateFilter === 'week') {
+      const firstDayOfWeek = new Date(today);
+      const day = today.getDay();
+      const diff = today.getDate() - day + (day === 0 ? -6 : 1); // Début de semaine le Lundi
+      firstDayOfWeek.setDate(diff);
+      return orderDate >= firstDayOfWeek;
+    }
+    if (dateFilter === 'month') {
+      const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+      return orderDate >= firstDayOfMonth;
+    }
+    
+    return true;
+  });
+
   return (
     <div className="admin-dashboard">
       <header className="admin-header">
@@ -106,16 +137,28 @@ const AdminDashboard = () => {
       <main className="admin-main">
         <div className="admin-stats">
           <div className="stat-card">
-            <h3>Total Commandes</h3>
-            <p className="stat-number">{orders.length}</p>
+            <h3>Commandes Achetées</h3>
+            <p className="stat-number">{filteredOrders.length}</p>
           </div>
           <div className="stat-card">
             <h3>En Attente</h3>
-            <p className="stat-number">{orders.filter(o => {
+            <p className="stat-number">{filteredOrders.filter(o => {
               const status = Array.isArray(o.Statut) ? o.Statut[0] : o.Statut;
               return status === 'Nouvelle' || !status;
             }).length}</p>
           </div>
+          <div className="stat-card highlight">
+            <h3>Chiffre d'Affaires</h3>
+            <p className="stat-number">{filteredOrders.reduce((acc, curr) => acc + (curr["Total à payer"] || 0), 0).toLocaleString()} <span className="text-sm">FCFA</span></p>
+          </div>
+        </div>
+
+        <div className="admin-filters">
+          <button className={`filter-btn ${dateFilter === 'all' ? 'active' : ''}`} onClick={() => setDateFilter('all')}>Toutes</button>
+          <button className={`filter-btn ${dateFilter === 'today' ? 'active' : ''}`} onClick={() => setDateFilter('today')}>Aujourd'hui</button>
+          <button className={`filter-btn ${dateFilter === 'yesterday' ? 'active' : ''}`} onClick={() => setDateFilter('yesterday')}>Hier</button>
+          <button className={`filter-btn ${dateFilter === 'week' ? 'active' : ''}`} onClick={() => setDateFilter('week')}>Cette Semaine</button>
+          <button className={`filter-btn ${dateFilter === 'month' ? 'active' : ''}`} onClick={() => setDateFilter('month')}>Ce Mois</button>
         </div>
 
         <div className="orders-table-container">
@@ -132,7 +175,7 @@ const AdminDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.map(order => (
+              {filteredOrders.map(order => (
                 <tr key={order.id}>
                   <td>{new Date(order.Date).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}</td>
                   <td className="font-bold">{order["Nom Complet"]}</td>
@@ -154,9 +197,9 @@ const AdminDashboard = () => {
                   </td>
                 </tr>
               ))}
-              {orders.length === 0 && !loading && (
+              {filteredOrders.length === 0 && !loading && (
                 <tr>
-                  <td colSpan="7" className="text-center py-8 text-gray-400">Aucune commande pour le moment.</td>
+                  <td colSpan="7" className="text-center py-8 text-gray-400">Aucune commande trouvée pour cette période.</td>
                 </tr>
               )}
             </tbody>
