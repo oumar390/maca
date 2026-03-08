@@ -39,7 +39,7 @@ export default async function handler(req, res) {
         {
           id: id,
           fields: {
-            "Statut": status
+            "Statut": [status]
           }
         }
       ]);
