@@ -31,7 +31,7 @@ export default async function handler(req, res) {
           "Ville / Adresse": address,
           "Quantité": quantity || 1,
           "Total à payer": total || 15000,
-          "Statut": "Nouvelle"
+          "Statut": ["Nouvelle"]
         }
       }
     ]);
