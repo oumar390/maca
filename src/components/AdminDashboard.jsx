@@ -10,6 +10,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [dateFilter, setDateFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
   
   // Simple "security" just to hide the UI on the client side
   // The real security should be on the API level, but this prevents random visitors from seeing it easily
@@ -88,6 +89,13 @@ const AdminDashboard = () => {
   }
 
   const filteredOrders = orders.filter(order => {
+    // Statut filter
+    if (statusFilter !== 'all') {
+      const currentStatus = (Array.isArray(order.Statut) ? order.Statut[0] : order.Statut) || 'Nouvelle';
+      if (currentStatus !== statusFilter) return false;
+    }
+
+    // Date filter
     if (dateFilter === 'all') return true;
     
     const orderDate = new Date(order.Date);
@@ -153,12 +161,29 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <div className="admin-filters">
-          <button className={`filter-btn ${dateFilter === 'all' ? 'active' : ''}`} onClick={() => setDateFilter('all')}>Toutes</button>
-          <button className={`filter-btn ${dateFilter === 'today' ? 'active' : ''}`} onClick={() => setDateFilter('today')}>Aujourd'hui</button>
-          <button className={`filter-btn ${dateFilter === 'yesterday' ? 'active' : ''}`} onClick={() => setDateFilter('yesterday')}>Hier</button>
-          <button className={`filter-btn ${dateFilter === 'week' ? 'active' : ''}`} onClick={() => setDateFilter('week')}>Cette Semaine</button>
-          <button className={`filter-btn ${dateFilter === 'month' ? 'active' : ''}`} onClick={() => setDateFilter('month')}>Ce Mois</button>
+        <div className="admin-filters-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+          <div className="admin-filters" style={{ margin: 0, padding: 0 }}>
+            <button className={`filter-btn ${dateFilter === 'all' ? 'active' : ''}`} onClick={() => setDateFilter('all')}>Toutes</button>
+            <button className={`filter-btn ${dateFilter === 'today' ? 'active' : ''}`} onClick={() => setDateFilter('today')}>Aujourd'hui</button>
+            <button className={`filter-btn ${dateFilter === 'yesterday' ? 'active' : ''}`} onClick={() => setDateFilter('yesterday')}>Hier</button>
+            <button className={`filter-btn ${dateFilter === 'week' ? 'active' : ''}`} onClick={() => setDateFilter('week')}>Cette Semaine</button>
+            <button className={`filter-btn ${dateFilter === 'month' ? 'active' : ''}`} onClick={() => setDateFilter('month')}>Ce Mois</button>
+          </div>
+          
+          <div className="status-filter-container">
+            <select 
+              value={statusFilter} 
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="status-select"
+              style={{ padding: '0.6rem 1rem', fontSize: '0.95rem' }}
+            >
+              <option value="all">Tous les Statuts</option>
+              <option value="Nouvelle">🔵 Nouvelle</option>
+              <option value="En traitement">🟡 En traitement</option>
+              <option value="Expédiée">🟢 Expédiée</option>
+              <option value="Payée">✅ Payée</option>
+            </select>
+          </div>
         </div>
 
         <div className="orders-table-container">
