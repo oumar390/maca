@@ -1,4 +1,4 @@
-const Airtable = require('airtable');
+import Airtable from 'airtable';
 
 export default async function handler(req, res) {
   // N'accepter que les requêtes POST

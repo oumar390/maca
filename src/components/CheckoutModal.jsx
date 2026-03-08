@@ -26,6 +26,13 @@ const CheckoutModal = ({ isOpen, onClose }) => {
     e.preventDefault();
     setStatus('loading');
 
+    // Simulation parfaite pour le développement local (Vite ne route pas /api par défaut sans configuration complexe)
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      console.log('Mode local détecté : Simulation de commande réussie !', formData);
+      setTimeout(() => setStatus('success'), 1500);
+      return;
+    }
+
     try {
       const response = await fetch('/api/orders', {
         method: 'POST',
@@ -39,12 +46,13 @@ const CheckoutModal = ({ isOpen, onClose }) => {
       if (response.ok) {
         setStatus('success');
       } else {
+        const errData = await response.json();
+        console.error("Server Error:", errData);
         setStatus('error');
       }
     } catch (error) {
-      console.error(error);
-      // Fallback de succès local si l'API n'est pas routée par Vite
-      setStatus('success');
+      console.error("Network Error:", error);
+      setStatus('error');
     }
   };
 
@@ -60,6 +68,12 @@ const CheckoutModal = ({ isOpen, onClose }) => {
             <h2>🎉 Commande Confirmée !</h2>
             <p>Merci pour votre commande de X-Power. Notre équipe va vous contacter très prochainement pour l'expédition.</p>
             <button className="btn btn-primary btn-checkout" onClick={onClose}>Fermer</button>
+          </div>
+        ) : status === 'error' ? (
+          <div className="modal-success" style={{ color: 'var(--color-text-main)' }}>
+            <h2 style={{ color: '#E25822' }}>❌ Oups !</h2>
+            <p>Une erreur est survenue lors de l'enregistrement de votre commande. Veuillez réessayer plus tard.</p>
+            <button className="btn btn-primary btn-checkout" onClick={() => setStatus('idle')}>Réessayer</button>
           </div>
         ) : (
           <>
