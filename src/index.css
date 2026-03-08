@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap");
+
+:root {
+  --color-bg: #111111;
+  --color-text-main: #f5f5f5;
+  --color-text-light: #b0b0b0;
+  --color-accent-yellow: #D4AF37; /* Gold */
+  --color-accent-brown: #E25822; /* Fire Red */
+  --color-nav-bg: #222222;
+  --font-sans: "Jost", sans-serif;
+  --font-serif: "Playfair Display", serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Global utility classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-padding {
+  padding: 80px 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 16px;
+}
+
+.btn-primary {
+  background-color: var(--color-accent-yellow);
+  color: var(--color-text-main);
+}
+
+.btn-primary:hover {
+  background-color: #e6ac00;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--color-text-light);
+  color: var(--color-text-main);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-text-main);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Specific Headings from design */
+h1 {
+  font-size: 4rem; /* Discover The Finest Coffee */
+}
+
+.highlight-yellow {
+  color: var(--color-accent-yellow);
+}
+
+h2 {
+  font-size: 3rem;
+  color: var(--color-text-main);
+}
+
+.wavy-bg {
+  position: relative;
+}
+
+.wavy-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: repeating-radial-gradient(
+    circle at 50% 50%,
+    transparent 0,
+    transparent 20px,
+    rgba(255, 192, 0, 0.05) 20px,
+    rgba(255, 192, 0, 0.05) 22px
+  );
+  z-index: -1;
+}
+
+/* Add custom animations here later if needed */
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 60px 0;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+}

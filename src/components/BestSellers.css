@@ -1,0 +1,125 @@
+.best-sellers {
+  background-color: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.best-headers-wrapper {
+  max-width: 600px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.best-desc {
+  color: var(--color-text-light);
+  font-size: 14px;
+}
+
+.best-grid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.best-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 250px;
+}
+
+.featured-card {
+  width: 300px; /* Center one is slightly larger */
+}
+
+.best-img-wrapper {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.best-tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background-color: var(--color-accent-yellow);
+  color: var(--color-text-main);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.best-img {
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s;
+}
+
+.best-card:hover .best-img {
+  transform: translateY(-8px) scale(1.05);
+}
+
+.best-info h3 {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.best-price {
+  color: var(--color-text-light);
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.best-buy-btn {
+  padding: 8px 24px;
+  font-size: 14px;
+  border-radius: 24px;
+  color: var(--color-accent-brown);
+  border-color: rgba(141, 92, 58, 0.3);
+}
+
+.best-buy-btn:hover {
+  background-color: var(--color-accent-brown);
+  color: #fff;
+  border-color: var(--color-accent-brown);
+}
+
+.best-carousel {
+  max-width: 200px;
+  margin: 0 auto;
+  border-top: none; /* overriding the default from featured */
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  .best-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+  }
+  .best-card, .featured-card {
+    width: 100%;
+    max-width: 320px;
+  }
+}

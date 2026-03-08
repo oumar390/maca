@@ -1,0 +1,178 @@
+.featured-products {
+  background-color: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Wavy lines background pattern placeholder. We might need a real SVG later. */
+.featured-products::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(transparent, transparent 49px, rgba(141, 92, 58, 0.05) 50px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.featured-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.featured-header h2 {
+  flex: 0 0 auto;
+}
+
+.header-decoration {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.featured-desc {
+  flex: 0 0 450px;
+  font-size: 14px;
+  color: var(--color-text-light);
+}
+
+.products-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 60px;
+}
+
+.product-item {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+.product-info h3 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.product-type {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.product-img {
+  width: 100px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.product-item:hover .product-img {
+  transform: translateY(-10px);
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(141, 92, 58, 0.2);
+  padding-top: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.carousel-btn {
+  background: none;
+  border: 1px solid rgba(141, 92, 58, 0.2);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--color-text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.carousel-btn:hover {
+  background-color: var(--color-accent-yellow);
+  border-color: var(--color-accent-yellow);
+}
+
+.carousel-indicator {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-accent-brown);
+}
+
+.carousel-indicator sub {
+  font-size: 14px;
+  color: var(--color-text-light);
+}
+
+/* --- Benefits Layout --- */
+.benefits-layout {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+}
+
+.benefit-card {
+  display: flex; /* Added display flex */
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: rgba(34, 34, 34, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 12px;
+  padding: 0 24px 32px 24px; /* Adjusted padding to accommodate the negative margin icon */
+  width: 30%;
+  transition: all 0.3s ease;
+  margin-top: 40px; /* To prevent icon from hitting the top element */
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212, 175, 55, 0.4);
+  background-color: rgba(34, 34, 34, 0.8);
+}
+
+.benefit-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: -60px; /* Pulls image up onto the border */
+  margin-bottom: 16px;
+  border: 4px solid var(--color-bg);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  background-color: var(--color-bg);
+}
+
+.benefit-desc {
+  font-size: 14px;
+  color: var(--color-text-light);
+  line-height: 1.6;
+  margin-top: 16px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .benefits-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+  .benefit-card {
+    width: 100%;
+    margin-top: 60px;
+  }
+}
