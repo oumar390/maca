@@ -15,14 +15,13 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     try {
-      const records = await base('Commandes').select({
-        sort: [{ field: "Date", direction: "desc" }]
-      }).firstPage();
+      const records = await base('Commandes').select().firstPage();
       
       const orders = records.map(record => ({
         id: record.getId(),
+        Date: record.fields.Date || record._rawJson.createdTime,
         ...record.fields
-      }));
+      })).reverse();
 
       res.status(200).json(orders);
     } catch (err) {
