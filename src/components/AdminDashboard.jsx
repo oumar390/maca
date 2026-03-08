@@ -4,6 +4,7 @@ import './AdminDashboard.css';
 
 const AdminDashboard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -13,7 +14,7 @@ const AdminDashboard = () => {
   // The real security should be on the API level, but this prevents random visitors from seeing it easily
   const handleLogin = (e) => {
     e.preventDefault();
-    if (password === 'xpoweradmin123') { // Hardcoded MVP password as requested
+    if (email === 'admin@xpower.com' && password === 'xpoweradmin123') { // Hardcoded MVP credentials
       setIsAuthenticated(true);
       fetchOrders();
     } else {
@@ -63,11 +64,19 @@ const AdminDashboard = () => {
           <h2>X-Power Admin</h2>
           <form onSubmit={handleLogin}>
             <input 
+              type="email" 
+              placeholder="Adresse E-mail" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoFocus
+            />
+            <input 
               type="password" 
               placeholder="Mot de passe" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              autoFocus
+              required
             />
             {error && <p className="admin-error">{error}</p>}
             <button type="submit" className="btn btn-primary">Accéder au Dashboard</button>
@@ -102,7 +111,10 @@ const AdminDashboard = () => {
           </div>
           <div className="stat-card">
             <h3>En Attente</h3>
-            <p className="stat-number">{orders.filter(o => o.Statut === 'Nouvelle' || !o.Statut).length}</p>
+            <p className="stat-number">{orders.filter(o => {
+              const status = Array.isArray(o.Statut) ? o.Statut[0] : o.Statut;
+              return status === 'Nouvelle' || !status;
+            }).length}</p>
           </div>
         </div>
 
@@ -130,9 +142,9 @@ const AdminDashboard = () => {
                   <td className="font-bold">{(order["Total à payer"] || 0).toLocaleString()}</td>
                   <td>
                     <select 
-                      value={order.Statut || 'Nouvelle'} 
+                      value={(Array.isArray(order.Statut) ? order.Statut[0] : order.Statut) || 'Nouvelle'} 
                       onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                      className={`status-select status-${(order.Statut || 'Nouvelle').toLowerCase().replace(' ', '-')}`}
+                      className={`status-select status-${((Array.isArray(order.Statut) ? order.Statut[0] : order.Statut) || 'Nouvelle').toLowerCase().replace(' ', '-')}`}
                     >
                       <option value="Nouvelle">🔵 Nouvelle</option>
                       <option value="En traitement">🟡 En traitement</option>
