@@ -26,12 +26,8 @@ const CheckoutModal = ({ isOpen, onClose }) => {
     e.preventDefault();
     setStatus('loading');
 
-    // Simulation parfaite pour le développement local (Vite ne route pas /api par défaut sans configuration complexe)
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      console.log('Mode local détecté : Simulation de commande réussie !', formData);
-      setTimeout(() => setStatus('success'), 1500);
-      return;
-    }
+    // L'appel réseau vers l'API Vercel ou locale
+
 
     try {
       const response = await fetch('/api/orders', {

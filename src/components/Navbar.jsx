@@ -33,7 +33,6 @@ const Navbar = ({ onOpenCheckout }) => {
           </button>
           <button className="icon-btn" aria-label="Cart" onClick={onOpenCheckout}>
             <ShoppingBag size={20} />
-            <span className="cart-badge">2</span>
           </button>
         </div>
       </div>
