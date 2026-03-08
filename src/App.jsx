@@ -7,9 +7,15 @@ import BestSellers from './components/BestSellers';
 import Newsletter from './components/Newsletter';
 import Footer from './components/Footer';
 import CheckoutModal from './components/CheckoutModal';
+import AdminDashboard from './components/AdminDashboard';
 
 function App() {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+
+  // Simple routing for Admin Dashboard
+  if (window.location.pathname === '/admin') {
+    return <AdminDashboard />;
+  }
 
   return (
     <>
