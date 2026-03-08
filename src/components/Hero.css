@@ -1,5 +1,5 @@
 .hero {
-  padding-top: 140px; /* Space for absolute navbar */
+  padding-top: 160px; /* Space for absolute navbar and banner */
   min-height: 100vh;
   position: relative;
   overflow: hidden;
@@ -254,7 +254,7 @@
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
   .hero {
-    padding-top: 100px;
+    padding-top: 190px; /* Banner + Logo + Wrapped Links */
   }
   
   .hero-container {
