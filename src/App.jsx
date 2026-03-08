@@ -19,9 +19,6 @@ function App() {
 
   return (
     <>
-      <div className="top-banner">
-        Livraison gratuite partout à Dakar et paiement à la livraison 🚚
-      </div>
       <Navbar onOpenCheckout={() => setIsCheckoutOpen(true)} />
       <main>
         <Hero onOpenCheckout={() => setIsCheckoutOpen(true)} />

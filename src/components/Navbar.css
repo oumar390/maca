@@ -1,11 +1,15 @@
-.navbar {
-  background-color: transparent;
-  padding: 24px 0;
+.navbar-wrapper {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 100;
+}
+
+.navbar {
+  background-color: transparent;
+  padding: 16px 0;
+  width: 100%;
 }
 
 .nav-container {

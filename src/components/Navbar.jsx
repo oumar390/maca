@@ -4,7 +4,11 @@ import "./Navbar.css";
 
 const Navbar = ({ onOpenCheckout }) => {
   return (
-    <nav className="navbar">
+    <header className="navbar-wrapper">
+      <div className="top-banner">
+        Livraison gratuite partout à Dakar et paiement à la livraison 🚚
+      </div>
+      <nav className="navbar">
       <div className="container nav-container">
         <ul className="nav-links">
           <li>
@@ -36,7 +40,8 @@ const Navbar = ({ onOpenCheckout }) => {
           </button>
         </div>
       </div>
-    </nav>
+      </nav>
+    </header>
   );
 };
 
