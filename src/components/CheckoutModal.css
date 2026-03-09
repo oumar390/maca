@@ -229,16 +229,17 @@
   }
 
   .modal-close {
-    position: sticky; /* Make it sticky so it stays at the top when scrolling */
-    float: right;
-    top: -16px; /* Offset parent padding */
-    margin-bottom: -40px; /* Offset the space it took */
-    background: rgba(30, 30, 30, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: absolute; 
+    top: 12px; 
+    right: 12px;
+    background: rgba(20, 20, 20, 1);
+    border: 1px solid rgba(212, 175, 55, 0.6); /* Gold border for visibility */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    z-index: 1000;
   }
 
   .modal-header {
-    margin-top: 24px;
+    margin-top: 32px; /* Extra room for the close button */
   }
 
   .modal-header h2 {
