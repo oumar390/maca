@@ -56,6 +56,25 @@ const CheckoutModal = ({ isOpen, onClose }) => {
           })
         }).catch(err => console.log("Silent Webhook Warning:", err));
 
+        // 📈 Trigger Google Analytics / GTM Purchase Event
+        if (typeof window !== 'undefined' && window.dataLayer) {
+          window.dataLayer.push({ ecommerce: null }); // Clear previous ecommerce object
+          window.dataLayer.push({
+            event: 'purchase',
+            ecommerce: {
+              transaction_id: orderData.id,
+              value: price * formData.quantity,
+              currency: 'XOF',
+              items: [{
+                item_name: 'Café Instantané X-Power',
+                item_id: 'X-POWER-001',
+                price: price,
+                quantity: parseInt(formData.quantity, 10) || 1
+              }]
+            }
+          });
+        }
+
         setStatus('success');
       } else {
         const errData = await response.json();
