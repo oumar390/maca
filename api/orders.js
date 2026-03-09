@@ -37,6 +37,7 @@ export default async function handler(req, res) {
     ]);
 
     // Déclenchement du Webhook n8n (Télégram / Gmail)
+    let webhookDebug = null;
     try {
       const webhookUrl = process.env.N8N_WEBHOOK_URL || 'https://prod.n8wli.uk/webhook/0ac1dc3a-eb83-4d25-b69b-065f8c2e0bb1';
       if (webhookUrl) {
@@ -57,15 +58,18 @@ export default async function handler(req, res) {
         // We MUST await the raw text response body to guarantee the outbound POST was fully transmitted.
         const webhookResult = await webhookResponse.text();
         console.log("Webhook n8n envoyé avec succès. Réponse du serveur :", webhookResult);
+        webhookDebug = webhookResult;
       } else {
         console.log("Aucune URL Webhook n8n configurée. Envoi ignoré.");
+        webhookDebug = "No URL configured";
       }
     } catch (webhookError) {
       console.error("Erreur d'envoi du Webhook n8n:", webhookError);
+      webhookDebug = webhookError.message || "Unknown error";
       // On ne bloque pas la réponse client si le webhook échoue
     }
 
-    return res.status(200).json({ success: true, id: record[0].getId() });
+    return res.status(200).json({ success: true, id: record[0].getId(), webhookDebug });
   } catch (error) {
     console.error("Erreur Airtable (Order):", error);
     return res.status(500).json({ error: 'Erreur lors de la création de la commande' });
