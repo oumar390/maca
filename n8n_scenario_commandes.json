@@ -1,0 +1,78 @@
+{
+  "name": "Notification Commandes X-Power",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "0ac1dc3a-eb83-4d25-b69b-065f8c2e0bb1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [0, 0],
+      "id": "e28c2bfc-f184-45ea-81c5-1f175b0a836f",
+      "name": "Webhook",
+      "webhookId": "0ac1dc3a-eb83-4d25-b69b-065f8c2e0bb1"
+    },
+    {
+      "parameters": {
+        "chatId": "2061611674",
+        "text": "=🚀 NOUVELLE COMMANDE X-POWER !\n\n👤 Client: {{$json.body.fullName}}\n📞 Téléphone: {{$json.body.phone}}\n📍 Adresse: {{$json.body.address}}\n📦 Quantité: {{$json.body.quantity}} boîte(s)\n💰 Total: {{$json.body.total}} FCFA\n\n🔗 ID Commande : {{$json.body.orderId}}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [256, -96],
+      "id": "d95fbbc1-5b06-4c40-9062-8128302677da",
+      "name": "Send a text message",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZHD7ib9poIUuK283",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "votre_email@gmail.com",
+        "subject": "=NOUVELLE COMMANDE X-POWER : {{$json.body.fullName}}",
+        "message": "=Bonjour,<br><br>Vous avez reçu une nouvelle commande pour X-Power.<br><br><b>Détails de la commande :</b><br>- Client : {{$json.body.fullName}}<br>- Téléphone : {{$json.body.phone}}<br>- Adresse : {{$json.body.address}}<br>- Quantité : {{$json.body.quantity}} boîte(s)<br>- Total à payer : {{$json.body.total}} FCFA<br><br>Connectez-vous à votre Dashboard pour la traiter : https://maca-phi.vercel.app/admin<br><br>L'Équipe Ventes.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [272, 144],
+      "id": "c95a1013-acfb-4573-971c-a58b266061b2",
+      "name": "Send a message",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "oCA2qmfhBpfOWDGq",
+          "name": "Gmail account 4"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fa2baf02d8e75693f89a8565284827e3ad3131049f853fc3c2acda4cfee1cac1"
+  }
+}

@@ -36,6 +36,31 @@ export default async function handler(req, res) {
       }
     ]);
 
+    // Déclenchement du Webhook n8n (Télégram / Gmail)
+    try {
+      const webhookUrl = process.env.N8N_WEBHOOK_URL;
+      if (webhookUrl) {
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            orderId: record[0].getId(),
+            fullName,
+            phone,
+            address,
+            quantity: parseInt(quantity, 10) || 1,
+            total: parseInt(total, 10) || 15000
+          })
+        });
+        console.log("Webhook n8n envoyé avec succès.");
+      } else {
+        console.log("Aucune URL Webhook n8n configurée. Envoi ignoré.");
+      }
+    } catch (webhookError) {
+      console.error("Erreur d'envoi du Webhook n8n:", webhookError);
+      // On ne bloque pas la réponse client si le webhook échoue
+    }
+
     return res.status(200).json({ success: true, id: record[0].getId() });
   } catch (error) {
     console.error("Erreur Airtable (Order):", error);
