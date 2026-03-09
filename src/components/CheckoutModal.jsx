@@ -91,8 +91,10 @@ const CheckoutModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
+      {/* 🚀 Le bouton est maintenant attaché à l'overlay (écran), plus au formulaire défilant */}
+      <button className="modal-close" onClick={onClose}>&times;</button>
+      
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>&times;</button>
         
         {status === 'success' ? (
           <div className="modal-success">

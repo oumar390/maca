@@ -233,14 +233,14 @@
     top: 16px; 
     right: 16px;
     background: rgba(30, 30, 30, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.8);
     z-index: 1000;
   }
 
   .modal-header {
     margin-top: 24px;
-    padding-right: 32px; /* Prevent text from going under the X button */
+    padding-right: 0; /* No longer needed as button is floating outside */
   }
 
   .modal-header h2 {
