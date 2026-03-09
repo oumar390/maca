@@ -40,7 +40,7 @@ export default async function handler(req, res) {
     try {
       const webhookUrl = process.env.N8N_WEBHOOK_URL || 'https://prod.n8wli.uk/webhook/0ac1dc3a-eb83-4d25-b69b-065f8c2e0bb1';
       if (webhookUrl) {
-        await fetch(webhookUrl, {
+        const webhookResponse = await fetch(webhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -52,7 +52,11 @@ export default async function handler(req, res) {
             total: parseInt(total, 10) || 15000
           })
         });
-        console.log("Webhook n8n envoyé avec succès.");
+        
+        // Vercel Edge Serverless functions will kill the process if we return too early.
+        // We MUST await the raw text response body to guarantee the outbound POST was fully transmitted.
+        const webhookResult = await webhookResponse.text();
+        console.log("Webhook n8n envoyé avec succès. Réponse du serveur :", webhookResult);
       } else {
         console.log("Aucune URL Webhook n8n configurée. Envoi ignoré.");
       }
