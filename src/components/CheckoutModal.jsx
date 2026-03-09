@@ -40,6 +40,22 @@ const CheckoutModal = ({ isOpen, onClose }) => {
       });
 
       if (response.ok) {
+        const orderData = await response.json();
+        
+        // 🔥 Trigger the n8n webhook directly from the browser to bypass Cloudflare Data Center Blocks
+        fetch('/webhook/0ac1dc3a-eb83-4d25-b69b-065f8c2e0bb1', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            orderId: orderData.id,
+            fullName: formData.fullName,
+            phone: formData.phone,
+            address: formData.address,
+            quantity: parseInt(formData.quantity, 10) || 1,
+            total: price * formData.quantity
+          })
+        }).catch(err => console.log("Silent Webhook Warning:", err));
+
         setStatus('success');
       } else {
         const errData = await response.json();

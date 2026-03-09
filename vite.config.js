@@ -9,6 +9,11 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:3001',
         changeOrigin: true,
+      },
+      '/webhook': {
+        target: 'https://prod.n8wli.uk',
+        changeOrigin: true,
+        secure: false, // In case of arbitrary SSL issues
       }
     }
   }

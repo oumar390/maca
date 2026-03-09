@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/webhook/(.*)",
+      "destination": "https://prod.n8wli.uk/webhook/$1"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/$1"
     },
