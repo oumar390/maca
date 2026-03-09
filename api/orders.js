@@ -39,7 +39,7 @@ export default async function handler(req, res) {
     // Déclenchement du Webhook n8n (Télégram / Gmail)
     let webhookDebug = null;
     try {
-      const webhookUrl = process.env.N8N_WEBHOOK_URL || 'https://prod.n8wli.uk/webhook/0ac1dc3a-eb83-4d25-b69b-065f8c2e0bb1';
+      const webhookUrl = process.env.N8N_WEBHOOK_URL;
       if (webhookUrl) {
         const webhookResponse = await fetch(webhookUrl, {
           method: 'POST',
